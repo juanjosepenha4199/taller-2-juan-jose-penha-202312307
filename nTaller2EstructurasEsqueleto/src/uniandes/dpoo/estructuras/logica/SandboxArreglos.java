@@ -432,18 +432,15 @@ public class SandboxArreglos
             return true;
     }
 
-
         if (arregloEnteros == null || otroArreglo == null) 
     {
             return false;
     }
 
-
         if (arregloEnteros.length != otroArreglo.length) 
     {
             return false;
     }
-
 
         for (int i = 0; i < arregloEnteros.length; i++) 
     {
@@ -452,7 +449,6 @@ public class SandboxArreglos
                 return false;
     }
     }
-
 
         return true;
     }

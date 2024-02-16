@@ -42,7 +42,7 @@ public class SandboxListas
      */
     public List<Integer> getCopiaEnteros( )
     {
-        return null;
+        return new ArrayList<>(listaEnteros); 
     }
 
     /**
@@ -51,7 +51,7 @@ public class SandboxListas
      */
     public List<String> getCopiaCadenas( )
     {
-        return null;
+        return new LinkedList<>(listaCadenas); 
     }
 
     /**
@@ -60,8 +60,16 @@ public class SandboxListas
      */
     public int[] getEnterosComoArreglo( )
     {
-        return null;
+    	int[] arregloDeEnteros = new int[listaCadenas.size()];
+
+
+        for (int i = 0; i < listaCadenas.size(); i++) {
+            arregloDeEnteros[i] = listaCadenas.get(i);
+        }
+
+        return arregloDeEnteros;
     }
+    
 
     /**
      * Retorna la cantidad de valores en la lista de enteros
@@ -69,7 +77,7 @@ public class SandboxListas
      */
     public int getCantidadEnteros( )
     {
-        return -1;
+        return  listaEnteros.size();
     }
 
     /**
@@ -78,7 +86,7 @@ public class SandboxListas
      */
     public int getCantidadCadenas( )
     {
-        return -1;
+        return listaCadenas.size();
     }
 
     /**
@@ -88,7 +96,13 @@ public class SandboxListas
      */
     public void agregarEntero( int entero )
     {
+    	if (listaEnteros == null) {
+            System.out.println("Error: La lista de enteros no ha sido inicializada.");
+            return;
+        }
 
+
+    	listaEnteros.add(entero);
     }
 
     /**
@@ -98,7 +112,12 @@ public class SandboxListas
      */
     public void agregarCadena( String cadena )
     {
+    	if (listaCadenas == null) {
+            System.out.println("Error: La lista de cadenas no ha sido inicializada.");
+            return;
+        }
 
+    	listaCadenas.add(cadena);
     }
 
     /**
