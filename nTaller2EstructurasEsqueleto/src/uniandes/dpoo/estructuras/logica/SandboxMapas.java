@@ -1,14 +1,16 @@
 package uniandes.dpoo.estructuras.logica;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+
 ;
 ;/**
  * Esta clase tiene un conjunto de métodos para practicar operaciones sobre mapas.
@@ -136,14 +138,14 @@ public class SandboxMapas
     public int getCantidadCadenasDiferentes( )
     {
     	 if (mapaCadenas != null && !mapaCadenas.isEmpty()) {
-             // Utilizar un conjunto (Set) para almacenar los valores únicos
+
              Set<String> valoresUnicos = new HashSet<>(mapaCadenas.values());
 
-             // Retornar la cantidad de valores únicos en el conjunto
+
              return valoresUnicos.size();
          }
 
-         // Retornar 0 si el mapa está vacío o no está inicializado
+
          return 0;
     }
 
