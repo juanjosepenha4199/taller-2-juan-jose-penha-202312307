@@ -119,7 +119,7 @@ public class SandboxConjuntos
     public Collection<String> getSiguientes( String cadena )
     {
         return null;
-    }wqwd
+    }
 
     /**
      * Retorna la cantidad de valores en el conjunto de cadenas
@@ -281,4 +281,4 @@ public class SandboxConjuntos
      }
     }
 
-}
+
