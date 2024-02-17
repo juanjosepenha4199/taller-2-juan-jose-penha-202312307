@@ -1,11 +1,16 @@
 package uniandes.dpoo.estructuras.logica;
-
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-/**
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+;
+;/**
  * Esta clase tiene un conjunto de métodos para practicar operaciones sobre mapas.
  *
  * Todos los métodos deben operar sobre el atributo mapaCadenas que se declara como un Map.
@@ -41,7 +46,11 @@ public class SandboxMapas
      */
     public List<String> getValoresComoLista( )
     {
-        return null;
+         Map<String, String> mapaOrdenado = new TreeMap<>(mapaCadenas);
+
+        List<String> listaOrdenada = new ArrayList<>(mapaOrdenado.values());
+
+        return listaOrdenada;
     }
 
     /**
@@ -50,8 +59,14 @@ public class SandboxMapas
      */
     public List<String> getLlavesComoListaInvertida( )
     {
-        return null;
+    	Map<String, String> mapaOrdenado = new TreeMap<>((str1, str2) -> str2.compareTo(str1));
+        mapaOrdenado.putAll(mapaCadenas);
+
+        List<String> listaLlavesOrdenadas = new ArrayList<>(mapaOrdenado.keySet());
+
+        return listaLlavesOrdenadas;
     }
+    
 
     /**
      * Retorna la cadena que sea lexicográficamente menor dentro de las llaves del mapa .
@@ -61,7 +76,13 @@ public class SandboxMapas
      */
     public String getPrimera( )
     {
-        return null;
+    	if (mapaCadenas.isEmpty()) {
+            return null;
+        }
+    	TreeMap<String, String> mapaOrdenado = new TreeMap<>(mapaCadenas);
+        return mapaOrdenado.firstKey();
+        
+        
     }
 
     /**
@@ -72,6 +93,16 @@ public class SandboxMapas
      */
     public String getUltima( )
     {
+    	if (mapaCadenas != null && !mapaCadenas.isEmpty()) {
+           
+            TreeMap<String, String> mapaOrdenado = new TreeMap<>((str1, str2) ->
+                    mapaCadenas.get(str2).compareTo(mapaCadenas.get(str1)));
+            
+            mapaOrdenado.putAll(mapaCadenas);
+
+            return mapaOrdenado.firstKey();
+        }
+
         return null;
     }
 
@@ -83,7 +114,19 @@ public class SandboxMapas
      */
     public Collection<String> getLlaves( )
     {
-        return null;
+    	 if (mapaCadenas != null && !mapaCadenas.isEmpty()) {
+
+             Collection<String> llaves = mapaCadenas.keySet();
+
+            
+             Collection<String> llavesEnMayusculas = new ArrayList<>();
+
+             for (String llave : llaves) {
+                 llavesEnMayusculas.add(llave.toUpperCase());
+             }
+
+             return llavesEnMayusculas;}
+		return new ArrayList<>();
     }
 
     /**
@@ -92,7 +135,16 @@ public class SandboxMapas
      */
     public int getCantidadCadenasDiferentes( )
     {
-        return -1;
+    	 if (mapaCadenas != null && !mapaCadenas.isEmpty()) {
+             // Utilizar un conjunto (Set) para almacenar los valores únicos
+             Set<String> valoresUnicos = new HashSet<>(mapaCadenas.values());
+
+             // Retornar la cantidad de valores únicos en el conjunto
+             return valoresUnicos.size();
+         }
+
+         // Retornar 0 si el mapa está vacío o no está inicializado
+         return 0;
     }
 
     /**
@@ -104,7 +156,10 @@ public class SandboxMapas
      */
     public void agregarCadena( String cadena )
     {
-
+    	 if (!mapaCadenas.containsValue(cadena)) {
+             String cadenaInvertida = new StringBuilder(cadena).reverse().toString();
+             mapaCadenas.put(cadenaInvertida, cadena);
+         }
     }
 
     /**
@@ -113,7 +168,8 @@ public class SandboxMapas
      */
     public void eliminarCadenaConLLave( String llave )
     {
-
+    	if (mapaCadenas != null && mapaCadenas.containsKey(llave)) {
+            mapaCadenas.remove(llave);}
     }
 
     /**
@@ -122,8 +178,19 @@ public class SandboxMapas
      */
     public void eliminarCadenaConValor( String valor )
     {
+    	if (mapaCadenas != null) {
 
+            Iterator<Map.Entry<String, String>> iterator = mapaCadenas.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, String> entry = iterator.next();
+                if (valor.equals(entry.getValue())) {
+                    iterator.remove();
+                    break;  
+                }
+            }
+        }
     }
+
 
     /**
      * Reinicia el mapa de cadenas con las representaciones como Strings de los objetos contenidos en la lista del parámetro 'objetos'.
@@ -133,16 +200,30 @@ public class SandboxMapas
      */
     public void reiniciarMapaCadenas( List<Object> objetos )
     {
+    	if (mapaCadenas != null) {
+            mapaCadenas.clear();
 
+            for (Object objeto : objetos) {
+                String cadena = Objects.toString(objeto, null);
+                mapaCadenas.put(cadena, cadena);
+            }
+        }
     }
-
     /**
      * Modifica el mapa de cadenas reemplazando las llaves para que ahora todas estén en mayúsculas pero sigan conservando las mismas cadenas asociadas.
      */
     public void volverMayusculas( )
     {
-
+    	if (mapaCadenas != null) {
+            Map<String, String> nuevoMapa = new HashMap<>();
+            for (Map.Entry<String, String> entry : mapaCadenas.entrySet()) {
+                String llaveEnMayusculas = entry.getKey().toUpperCase();
+                nuevoMapa.put(llaveEnMayusculas, entry.getValue());
+            }
+            mapaCadenas = nuevoMapa;
+        }
     }
+    
 
     /**
      * Verifica si todos los elementos en el arreglo de cadenas del parámetro hacen parte del mapa de cadenas (de los valores)
@@ -151,7 +232,17 @@ public class SandboxMapas
      */
     public boolean compararValores( String[] otroArreglo )
     {
-        return false;
+    	if (mapaCadenas != null) {
+           
+            for (String elemento : otroArreglo) {
+                if (!mapaCadenas.containsValue(elemento)) {
+                    return false;  
+                }
+            }
+            return true; 
+        }
+        return false;  
+    }
     }
 
-}
+

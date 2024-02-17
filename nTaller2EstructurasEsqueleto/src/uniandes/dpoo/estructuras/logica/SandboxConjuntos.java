@@ -1,17 +1,10 @@
 package uniandes.dpoo.estructuras.logica;
-import java.util.Collection;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.NavigableSet;
 import java.util.TreeSet;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.Locale;
 
 /**
  * Esta clase tiene un conjunto de métodos para practicar operaciones sobre conjuntos implementados usando un árbol (TreeSet).
@@ -184,21 +177,8 @@ public class SandboxConjuntos
      */
     public void eliminarPrimera( )
     {
-    	 if (arbolCadenas == null) {
-             System.out.println("Error: El arreglo de cadenas no se puede ejecutar.");
-             return;
-         }
-
-
-         if (!arbolCadenas.isEmpty()) {
-
-             Iterator<String> iterator = arbolCadenas.iterator();
-             if (iterator.hasNext()) {
-                 iterator.next();
-                 iterator.remove();
-             }
-         }
-     }
+    	if (!arbolCadenas.isEmpty())
+            arbolCadenas.remove(arbolCadenas.first());}
     
 
     /**
@@ -221,37 +201,22 @@ public class SandboxConjuntos
      */
     public void volverMayusculas( )
     {
-    	if (arbolCadenas == null) {
-            System.out.println("Error: El arreglo de cadenas no se puede ejecutar.");
-            return;
-        }
-
-
-        Set<String> nuevoarbolCadenas = new HashSet<>();
-
-
+    	TreeSet<String> nuevoArbol = new TreeSet<>();
         for (String cadena : arbolCadenas) {
-        	nuevoarbolCadenas.add(cadena.toUpperCase(Locale.ENGLISH));
+            nuevoArbol.add(cadena.toUpperCase());
         }
-        arbolCadenas = (NavigableSet<String>) nuevoarbolCadenas;
+        arbolCadenas = nuevoArbol;
     }
     
 
     /**
      * Construye un árbol de cadenas donde todas las cadenas están organizadas de MAYOR a MENOR.
      */
-    public TreeSet<String> invertirCadenas(String cadena)
-    {{
+    public TreeSet<String> invertirCadenas( )
 
-        arbolCadenas = new TreeSet<>((cadena1, cadena2) -> cadena2.compareTo(cadena1));
-        if (arbolCadenas == null) {
-            System.out.println("Error: El arreglo de cadenas no se puede ejecutar.");
-            return null;
-        }
-
-        // Agregar la cadena al árbol
-        arbolCadenas.add(cadena);
-    }
+    {
+    	TreeSet<String> arbolInv=new TreeSet<>(arbolCadenas.descendingSet());
+    	return arbolInv;
     }
 
     /**
@@ -261,15 +226,6 @@ public class SandboxConjuntos
      */
     public boolean compararElementos( String[] otroArreglo )
     {
-    	 if (arbolCadenas == null) {
-             System.out.println("Error: El arreglo de cadenas no se puede ejecutar.");
-             return false;
-         }
-
-         if (otroArreglo == null) {
-             System.out.println("Error: El arreglo de cadenas no se puede ejecutar.");
-             return false;
-         }
 
          for (String cadena : otroArreglo) {
              if (!arbolCadenas.contains(cadena)) {
@@ -279,6 +235,5 @@ public class SandboxConjuntos
 
          return true;
      }
-    }
-
+	}	
 
